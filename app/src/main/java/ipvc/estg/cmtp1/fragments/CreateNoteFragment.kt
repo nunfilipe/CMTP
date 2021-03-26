@@ -257,11 +257,8 @@ class CreateNoteFragment : BaseFragment(),EasyPermissions.PermissionCallbacks,Ea
     }
 
     override fun onDestroy() {
-
         LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(BroadcastReceiver)
         super.onDestroy()
-
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
