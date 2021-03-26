@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+<!--    <color name="white">#FFFFFFFF</color>
+
+    <color name="colorPrimary">#E0E0E0</color>
+    <color name="colorPrimaryDark">#FBB8AC</color>
+    <color name="colorAccent">#FEDBD0</color>
+    <color name="textColorPrimary">#442C2E</color>
+    <color name="toolbarIconColor">@color/textColorPrimary</color>
+    <color name="loginPageBackgroundColor">#FFFFFF</color>
+    <color name="textInputOutlineColor">#FBB8AC</color>
+    <color name="productGridBackgroundColor">#FFFBFA</color>-->
+
+    <color name="ColorWhite">#ffffff</color>
+    <color name="ColorGray">#CACACA</color>
+    <color name="ColorLightBlack">#171C26</color>
+    <color name="ColorText">#ffffff</color>
+    <color name="ColorDarkBlack">#10141C</color>
+    <color name="ColorYellow">#ffd633</color>
+    <color name="ColorBlue">#4e33ff</color>
+
+    <color name="ColorDefaultNote">#606570</color>
+    <color name="ColorBlueNote">#4e33ff</color>
+    <color name="ColorYellowNote">#ffd633</color>
+    <color name="ColorWhiteNote">#ffffff</color>
+    <color name="ColorPurpleNote">#ae3b76</color>
+    <color name="ColorGreenNote">#0aebaf</color>
+    <color name="ColorOrangeNote">#ff7746</color>
+    <color name="ColorBlackNote">#202734</color>
+
+<!--    <color name="colorPrimary">#7CB342</color>-->
+    <color name="colorPrimary">#87CEFA</color>
+    <color name="colorPrimaryDark">#00BFFF</color>
+<!--    <color name="colorPrimaryDark">#73A53D</color>-->
+
+    <color name="colorAccent">#00BFFF</color>
+    <color name="textColorPrimary">#442C2E</color>
+    <color name="toolbarIconColor">@color/textColorPrimary</color>
+    <color name="loginPageBackgroundColor">#FFFFFF</color>
+    <color name="productGridBackgroundColor">#FFFBFA</color>
+    <color name="textInputOutlineColor">#7CB342</color>
+    <color name="white">#fff</color>
+
+    <color name="cpb_grey">#ffdedede</color>
+    <color name="cpb_blue">#ff0099cc</color>
+    <color name="cpb_blue_dark">#ff00719b</color>
+    <color name="cpb_red">#ffff4444</color>
+    <color name="cpb_red_dark">#ffcd3a3a</color>
+    <color name="cpb_green">#ff99cc00</color>
+    <color name="cpb_green_dark">#ff6d9b00</color>
+    <color name="cpb_white">@android:color/white</color>
+    <color name="email_color">#e0e2e2</color>
+
+    <color name="year">#999999</color>
+    <color name="title">#535353</color>
+    <color name="content">#a9a9a9</color>
+    <color name="info">#c8448aff</color>
+    <color name="success">#ff6d9b00</color>
+    <color name="warning">#c8ffb133</color>
+    <color name="danger">#c8ff3a33</color>
+    <color name="pink">#D960EF</color>
+    <color name="background">#3c3f41</color>
+    <color name="line">#cacaca</color>
+    <color name="map_grey_color">#3c3f41</color>
+    <color name="green_light">#E7F4D9</color>
+    <color name="grey_light">#999999</color>
+
+    <color name="description">#424547</color>
+    <color name="transparent_white">#28FFFFFF</color>
+    <color name="transparent_whiter">#5EFFFFFF</color>
+</resources>
