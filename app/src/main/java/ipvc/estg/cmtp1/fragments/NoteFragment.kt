@@ -85,6 +85,7 @@ class NoteFragment : BaseFragment() {
 
         notesAdapter!!.setOnClickListener(onClicked)
 
+
         fabBtnCreateNote.setOnClickListener {
             replaceFragment(CreateNoteFragment.newInstance(),false)
         }
