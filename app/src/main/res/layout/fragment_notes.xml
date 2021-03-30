@@ -101,8 +101,6 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_link"
                 app:tint="@color/ColorWhite" />
-
-
         </LinearLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -117,8 +115,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:src="@drawable/ic_add"
-            android:layout_marginRight="@dimen/_20sdp"
             tools:ignore="ContentDescription" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 </FrameLayout>

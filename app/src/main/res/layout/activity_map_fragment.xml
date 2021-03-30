@@ -49,6 +49,16 @@
             android:layout_height="match_parent"
             tools:context=".fragments.MapFragment" />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:background="@color/colorPrimaryDark"
+            android:id="@+id/fabBtnCreatePoint"
+            android:tint="@color/ColorWhite"
+            android:src="@drawable/ic_add"
+            android:layout_gravity="bottom|right"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_20sdp"/>
     </FrameLayout>
-
 </FrameLayout>

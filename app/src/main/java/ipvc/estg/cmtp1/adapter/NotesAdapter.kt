@@ -45,13 +45,6 @@ class NotesAdapter() :
             holder.cardView.setCardBackgroundColor(Color.parseColor(R.color.ColorLightBlack.toString()))
         }
 
-/*        if (arrList[position].imgPath != null){
-            holder.itemView.imgNote.setImageBitmap(BitmapFactory.decodeFile(arrList[position].imgPath))
-            holder.itemView.imgNote.visibility = View.VISIBLE
-        }else{
-            holder.itemView.imgNote.visibility = View.GONE
-        }*/
-
         holder.cardView.setOnClickListener {
             listener!!.onClicked(arrList[position].id!!)
         }

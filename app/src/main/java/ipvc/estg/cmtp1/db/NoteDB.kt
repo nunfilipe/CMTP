@@ -79,7 +79,7 @@ public abstract class NoteDB : RoomDatabase() {
                     , "note_database"
                 ).build()
             }
-            return notesDatabase!!
+            return notesDatabase
         }
     }
 /*companion object {
