@@ -84,7 +84,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             return
         }
 
-        googleMap?.uiSettings?.isZoomControlsEnabled = true
+        googleMap?.uiSettings?.isZoomControlsEnabled = true //button zoom
 
         googleMap?.isMyLocationEnabled = true
 

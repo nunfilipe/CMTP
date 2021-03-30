@@ -77,13 +77,13 @@ class NoteFragment : BaseFragment() {
         launch {
             context?.let {
                 val notes = NoteDB.getDatabase(it).noteDao().getAllNotes()
-                notesAdapter!!.setData(notes)
+                notesAdapter.setData(notes)
                 arrNotes = notes as ArrayList<Note>
                 recycler_view.adapter = notesAdapter
             }
         }
 
-        notesAdapter!!.setOnClickListener(onClicked)
+        notesAdapter.setOnClickListener(onClicked)
 
 
         fabBtnCreateNote.setOnClickListener {
@@ -117,12 +117,12 @@ class NoteFragment : BaseFragment() {
 
 
     private val onClicked = object :NotesAdapter.OnItemClickListener{
-        override fun onClicked(notesId: Int) {
+        override fun onClicked(noteId: Int) {
 
 
             var fragment : Fragment
             var bundle = Bundle()
-            bundle.putInt("noteId",notesId)
+            bundle.putInt("noteId",noteId)
             fragment = CreateNoteFragment.newInstance()
             fragment.arguments = bundle
 
