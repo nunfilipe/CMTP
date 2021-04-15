@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:id="@+id/layoutNote"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_height="wrap_content">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutNote"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/_10sdp"
-        app:cardElevation="@dimen/_5sdp"
         android:layout_margin="@dimen/_5sdp"
+        android:padding="@dimen/_5sdp"
         app:cardBackgroundColor="@color/ColorLightBlack"
-        android:padding="@dimen/_5sdp">
+        app:cardCornerRadius="@dimen/_10sdp"
+        app:cardElevation="@dimen/_5sdp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,54 +29,71 @@
                 android:adjustViewBounds="true"
                 android:visibility="gone"
                 app:riv_corner_radius_top_left="@dimen/_10sdp"
-                app:riv_corner_radius_top_right="@dimen/_10sdp"/>
+                app:riv_corner_radius_top_right="@dimen/_10sdp" />
 
             <TextView
                 android:id="@+id/tvTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/_15ssp"
-                android:text="@string/notes"
                 android:paddingStart="@dimen/_10sdp"
-                android:paddingTop="@dimen/_10sdp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:textColor="@color/ColorWhite"
                 android:paddingLeft="@dimen/_10sdp"
+                android:paddingTop="@dimen/_10sdp"
+                android:text="@string/notes"
+                android:textColor="@color/ColorWhite"
+                android:textSize="@dimen/_15ssp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="RtlSymmetry" />
 
             <TextView
                 android:id="@+id/tvDesc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/_11ssp"
-                android:text="@string/notes"
                 android:paddingStart="@dimen/_10sdp"
+                android:paddingLeft="@dimen/_10sdp"
                 android:paddingTop="@dimen/_5sdp"
                 android:paddingBottom="@dimen/_5sdp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:text="@string/notes"
                 android:textColor="@color/ColorText"
-                android:paddingLeft="@dimen/_10sdp"
+                android:textSize="@dimen/_11ssp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="RtlSymmetry" />
 
-            <TextView
-                android:id="@+id/tvDateTime"
-                android:layout_width="match_parent"
+            <RelativeLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/_9ssp"
-                android:text="@string/notes"
-                android:paddingStart="@dimen/_10sdp"
-                android:paddingTop="@dimen/_2sdp"
-                android:paddingBottom="@dimen/_5sdp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:textColor="@color/ColorText"
-                android:paddingLeft="@dimen/_10sdp"
-                tools:ignore="RtlSymmetry" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvDateTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingTop="@dimen/_2sdp"
+                    android:paddingBottom="@dimen/_5sdp"
+                    android:text="@string/notes"
+                    android:textColor="@color/ColorText"
+                    android:textSize="@dimen/_9ssp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="RtlSymmetry" />
+
+                <ImageView
+                    android:id="@+id/noteSelect"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginEnd="20dp"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/checkmark"
+                    android:visibility="gone"/>
+
+            </RelativeLayout>
+
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

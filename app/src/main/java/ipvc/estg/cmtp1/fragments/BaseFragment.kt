@@ -1,7 +1,9 @@
 package ipvc.estg.cmtp1.fragments
 
 import android.os.Bundle
+import androidx.appcompat.view.ActionMode
 import androidx.fragment.app.Fragment
+import ipvc.estg.cmtp1.adapter.NotesAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -22,4 +24,5 @@ abstract class BaseFragment : Fragment(),CoroutineScope{
         super.onDestroy()
         job.cancel()
     }
+
 }

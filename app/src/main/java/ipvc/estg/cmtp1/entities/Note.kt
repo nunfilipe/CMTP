@@ -22,4 +22,6 @@ class Note (
     @ColumnInfo(name = "color")
     var color:String? = null
 
-)
+) {
+    var selected: Boolean = false
+}
