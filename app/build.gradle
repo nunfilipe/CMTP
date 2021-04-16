@@ -70,15 +70,18 @@ dependencies {
     implementation 'com.makeramen:roundedimageview:2.3.0'
 
     //crop image library
-
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
 
     //easy permission
-
     implementation 'pub.devrel:easypermissions:3.0.0'
 
-    //coroutines core
+    //coroutines core and
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1'
+
+    //livedata and view model
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
 
     //map
     implementation 'com.google.android.gms:play-services-maps:17.0.0'

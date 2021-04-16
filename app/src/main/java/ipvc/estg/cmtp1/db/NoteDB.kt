@@ -1,6 +1,7 @@
 package ipvc.estg.cmtp1.db
 
 import android.content.Context
+import android.view.View
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -34,10 +35,10 @@ public abstract class NoteDB : RoomDatabase() {
                     //noteDao.deleteAll()
 
                     // Add sample cities.
-                    var note = Note(1, "title1", "12/3/2021 03:31:28", "note1", "#FFFFFF")
+     /*               var note = Note(1, "title1", "12/3/2021 03:31:28", "note1", "#FFFFFF")
                     noteDao.insertNotes(note)
                     note = Note(2, "title2", "12/3/2021 03:31:28", "note2", "#000000")
-                    noteDao.insertNotes(note)
+                    noteDao.insertNotes(note)*/
                 }
             }
         }
@@ -70,7 +71,7 @@ public abstract class NoteDB : RoomDatabase() {
             }
         }
 
-        fun getDatabase(context: Context): NoteDB {
+/*        fun getDatabase(context: Context): NoteDB {
             var notesDatabase: NoteDB? = null
             if (notesDatabase == null) {
                 notesDatabase = Room.databaseBuilder(
@@ -81,7 +82,7 @@ public abstract class NoteDB : RoomDatabase() {
             }
             return notesDatabase
         }
-    }
+    }*/
 /*companion object {
     var notesDatabase: NoteDB? = null
 
@@ -95,6 +96,6 @@ public abstract class NoteDB : RoomDatabase() {
             ).build()
         }
         return notesDatabase!!
-    }
-}*/
+    }*/
+}
 }

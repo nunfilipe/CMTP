@@ -17,13 +17,17 @@ class MainActivity : AppCompatActivity(), NavigationHost {
 
         if (savedInstanceState == null) {
             supportFragmentManager
-                    .beginTransaction()
-                    .add(R.id.container, MapFragment())
-                    .commit()
+                .beginTransaction()
+                .add(R.id.container, MapFragment())
+                .commit()
         }
     }
 
-    override fun navigateTo(fragment: androidx.fragment.app.Fragment, addToBackstack: Boolean, animate: Boolean) {
+    override fun navigateTo(
+        fragment: androidx.fragment.app.Fragment,
+        addToBackstack: Boolean,
+        animate: Boolean
+    ) {
 
         val transaction = supportFragmentManager
             .beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
@@ -32,10 +36,28 @@ class MainActivity : AppCompatActivity(), NavigationHost {
             transaction.addToBackStack(null)
         }
 
-        if(animate){
+        if (animate) {
             transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         }
 
         transaction.replace(R.id.container, fragment).commit()
+    }
+
+    override fun navigateToWithData(
+        fragment: Fragment,
+        addToBackstack: Boolean,
+        animate: Boolean,
+        tag: String,
+        data: Bundle
+    ) {
+        val transaction = supportFragmentManager
+            .beginTransaction()
+
+        if (addToBackstack) {
+            transaction.addToBackStack(null)
+        }
+
+        fragment.arguments = data
+        transaction.replace(R.id.container, fragment, tag).commit()
     }
 }
