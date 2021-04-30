@@ -2,7 +2,6 @@ package ipvc.estg.cmtp1.fragments
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,8 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -24,7 +21,7 @@ import ipvc.estg.cmtp1.Listener.NavigationIconClickListener
 import ipvc.estg.cmtp1.R
 import ipvc.estg.cmtp1.interfaces.NavigationHost
 import kotlinx.android.synthetic.main.activity_main.view.app_bar
-import kotlinx.android.synthetic.main.activity_map_fragment.view.*
+import kotlinx.android.synthetic.main.fragment_map.view.*
 import kotlinx.android.synthetic.main.cmtp_backdrop.view.*
 
 class MapFragment : Fragment(), OnMapReadyCallback {
@@ -35,7 +32,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.activity_map_fragment, container, false)
+        val view = inflater.inflate(R.layout.fragment_map, container, false)
         //view.app_bar.title = getString(R.string.app_name)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
         mapFragment?.getMapAsync(this)
@@ -52,11 +49,15 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         ) // Menu close icon
 
         view.app_bar_nota.setOnClickListener {
-            (activity as NavigationHost).navigateTo(NoteFragment(), false, false)
+            (activity as NavigationHost).navigateTo(NoteFragment(), true, false)
         }
 
         view.app_bar_mapa.setOnClickListener {
-            (activity as NavigationHost).navigateTo(MapFragment(), false, false)
+            (activity as NavigationHost).navigateTo(MapFragment(), true, false)
+        }
+
+        view.app_bar_profile.setOnClickListener {
+            (activity as NavigationHost).navigateTo(LoginFragment(), true, false)
         }
         return view
     }

@@ -26,7 +26,7 @@
         android:background="?android:attr/textColorPrimary" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/vg_profile"
+        android:id="@+id/app_bar_profile"
         style="@style/Widget.Shrine.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

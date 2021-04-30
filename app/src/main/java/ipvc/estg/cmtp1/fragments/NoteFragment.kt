@@ -19,7 +19,6 @@ import ipvc.estg.cmtp1.adapter.NotesAdapter
 import ipvc.estg.cmtp1.entities.Note
 import ipvc.estg.cmtp1.interfaces.NavigationHost
 import ipvc.estg.cmtp1.viewModel.NoteViewModel
-import kotlinx.android.synthetic.main.activity_note_fragment.view.app_bar
 import kotlinx.android.synthetic.main.cmtp_backdrop.view.*
 import kotlinx.android.synthetic.main.fragment_notes.*
 import kotlinx.android.synthetic.main.fragment_notes.view.*
@@ -78,7 +77,7 @@ class NoteFragment : Fragment(), NotesAdapter.NotesAdapterListener {
                 .create(NoteViewModel::class.java)
         noteViewModel.allNotes.observe(this, Observer { notes ->
             // Update the cached copy of the words in the adapter.
-            notes?.let {
+            notes?.let { it ->
                 notesAdapter?.setNotes(it)
                 notesAdapter = context?.let {
                     NotesAdapter(
@@ -89,6 +88,7 @@ class NoteFragment : Fragment(), NotesAdapter.NotesAdapterListener {
                 }
                 notesAdapter!!.setHasStableIds(false)
                 notesAdapter!!.notifyItemRangeInserted(0, notes.size - 1)
+                arrNotes = notes as ArrayList<Note>
                 recycler_view!!.adapter = notesAdapter
             }
         })
@@ -98,19 +98,20 @@ class NoteFragment : Fragment(), NotesAdapter.NotesAdapterListener {
         }
 
         search_view.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(p0: String?): Boolean {
+            override fun onQueryTextSubmit(query: String?): Boolean {
                 return true
             }
 
-            override fun onQueryTextChange(p0: String?): Boolean {
+            override fun onQueryTextChange(query: String?): Boolean {
 
                 val tempArr = ArrayList<Note>()
 
                 for (arr in arrNotes) {
-                    if (arr.title!!.toLowerCase(Locale.getDefault()).contains(p0.toString())) {
+                    if (arr.title!!.toLowerCase(Locale.getDefault()).contains(query.toString())) {
                         tempArr.add(arr)
                     }
                 }
+                notesAdapter?.setNotes(tempArr)
                 notesAdapter?.notifyDataSetChanged()
                 return true
             }
@@ -124,15 +125,14 @@ class NoteFragment : Fragment(), NotesAdapter.NotesAdapterListener {
                 override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
                     if (item?.itemId == R.id.action_delete) {
                         val toDelete = notesAdapter!!.deleteNotes()
-                        Log.e("todelete", toDelete.toString())
-                        //noteViewModel = ViewModelProvider.AndroidViewModelFactory(activity?.applicationContext as Application).create(NoteViewModel::class.java)
+                        noteViewModel = ViewModelProvider.AndroidViewModelFactory(activity?.applicationContext as Application).create(NoteViewModel::class.java)
                         toDelete.forEach {
                             it.id?.let { it1 -> noteViewModel.deleteSpecificNote(it1) }
                             //notesAdapter?.notifyDataSetChanged()
-                            Log.e("delete", it.id.toString())
                         }
-                        notesAdapter?.notifyDataSetChanged()
                         mode?.finish()
+                        recycler_view!!.adapter = notesAdapter
+                        notesAdapter?.notifyDataSetChanged()
                         return true
                     }
                     return false

@@ -79,16 +79,12 @@ class NotesAdapter(notesList: MutableList<Note>, listener: NotesAdapterListener,
     }
 
     fun deleteNotes():MutableList<Note> {
-
         val filtered =  arrList.filter {
             it.selected
         }
-
-
         arrList.removeAll(filtered)
-        notifyDataSetChanged()
         currentSelectedPos = -1
-
+        notifyDataSetChanged()
         return filtered as MutableList<Note>
     }
 
@@ -122,9 +118,9 @@ class NotesAdapter(notesList: MutableList<Note>, listener: NotesAdapterListener,
 
     fun setNotes(notes: List<Note>) {
         this.notes = notes
+        arrList = notes as ArrayList<Note> //search
         notifyDataSetChanged()
     }
-
 
     init {
         setHasStableIds(false)

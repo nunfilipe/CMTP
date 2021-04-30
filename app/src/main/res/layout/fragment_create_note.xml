@@ -17,8 +17,7 @@
         android:src="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/ColorBlackNote"
-        android:layout_marginLeft="@dimen/_10sdp" />
+        app:tint="@color/ColorBlackNote"/>
 
     <ImageView
         android:id="@+id/imgDone"

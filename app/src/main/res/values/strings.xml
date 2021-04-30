@@ -1,10 +1,11 @@
 <resources>
+<!--    menu-->
     <string name="app_name">CMTP1</string>
-    <string name="cmtp_notes_label">Notas</string>
-    <string name="cmtp_maps_label">Mapas</string>
-    <string name="cmtp_account_label">Minha conta</string>
-    <string name="cmtp_account_leave_label">Minha conta</string>
+    <string name="cmtp_notes_label">Notes</string>
+    <string name="cmtp_maps_label">Maps</string>
+    <string name="cmtp_account_label">My acount</string>
 
+<!--    note-->
     <string name="notes">My Notes</string>
     <string name="notes_title">Notes Title</string>
     <string name="notes_sub_title">Notes Sub Title</string>
@@ -12,11 +13,23 @@
     <string name="web_url">Enter Web Url</string>
     <string name="ok">Ok</string>
     <string name="cancel">Cancel</string>
-    <string name="storage_permission_text">This app needs access to your storage.</string>
+<!--    <string name="storage_permission_text">This app needs access to your storage.</string>-->
     <string name="search">Search your notes</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="maps_api_key">Maps</string>
     <string name="title_activity_maps">Map</string>
     <string name="delete_note">Delete</string>
+    <string name="delete_note_sheet">Delete Note</string>
+    <string name="pick_color_sheet">Pick Color</string>
+
+<!--    Login-->
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="remember_me">Remember me</string>
+    <string name="no_account">Creat acount</string>
+    <string name="btn_login">Login</string>
+    <string name="required">This Field is Required</string>
+    <string name="user_info_wrong">Wrong Info</string>
+    <string name="login_fail">Login Fail</string>
+    <string name="welcom">Welcom</string>
+
 </resources>
