@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
@@ -24,13 +25,11 @@ import pub.devrel.easypermissions.EasyPermissions
 import java.text.SimpleDateFormat
 import java.util.*
 
-class CreateNoteFragment : BaseFragment(), EasyPermissions.PermissionCallbacks,
+class CreateNoteFragment : Fragment(), EasyPermissions.PermissionCallbacks,
     EasyPermissions.RationaleCallbacks {
 
     var selectedColor = "#171C26"
     var currentDate: String? = null
-    private var READ_STORAGE_PERM = 123
-    private var REQUEST_CODE_IMAGE = 456
     var destination: String? = null
     var noteId: Int? = 0
     private lateinit var noteViewModel: NoteViewModel
@@ -104,7 +103,8 @@ class CreateNoteFragment : BaseFragment(), EasyPermissions.PermissionCallbacks,
 
     private fun updateNote() {
         if (etNoteTitle.text.isNullOrEmpty()) {
-            Toast.makeText(context, "Note Title is Required", Toast.LENGTH_SHORT).show()
+            etNoteTitle.error = "Note Title is Required"
+            //Toast.makeText(context, "Note Title is Required", Toast.LENGTH_SHORT).show()
         } else {
             noteViewModel =
                 ViewModelProvider.AndroidViewModelFactory(activity?.applicationContext as Application)
@@ -127,7 +127,7 @@ class CreateNoteFragment : BaseFragment(), EasyPermissions.PermissionCallbacks,
     private fun saveNote() {
         if (etNoteTitle.text.isNullOrEmpty()) {
             etNoteTitle.error = "Note Title is Required"
-            Toast.makeText(context, "Note Title is Required", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, "Note Title is Required", Toast.LENGTH_SHORT).show()
         } else {
             val note = Note()
             note.title = etNoteTitle.text.toString()

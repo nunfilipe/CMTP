@@ -70,32 +70,5 @@ public abstract class NoteDB : RoomDatabase() {
                 return instance
             }
         }
-
-/*        fun getDatabase(context: Context): NoteDB {
-            var notesDatabase: NoteDB? = null
-            if (notesDatabase == null) {
-                notesDatabase = Room.databaseBuilder(
-                    context
-                    , NoteDB::class.java
-                    , "note_database"
-                ).build()
-            }
-            return notesDatabase
-        }
-    }*/
-/*companion object {
-    var notesDatabase: NoteDB? = null
-
-    @Synchronized
-    fun getDatabase(context: Context): NoteDB {
-        if (notesDatabase == null) {
-            notesDatabase = Room.databaseBuilder(
-                context
-                , NoteDB::class.java
-                , "note_database"
-            ).build()
-        }
-        return notesDatabase!!
-    }*/
 }
 }
