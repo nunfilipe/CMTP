@@ -194,9 +194,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                         .position(LatLng(it.latitude, it.longitude))
                         .title(it.location)
                     )
-
                     marker!!.tag = item
-
                 }
 
             }
