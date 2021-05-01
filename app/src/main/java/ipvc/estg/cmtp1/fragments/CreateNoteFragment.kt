@@ -103,8 +103,7 @@ class CreateNoteFragment : Fragment(), EasyPermissions.PermissionCallbacks,
 
     private fun updateNote() {
         if (etNoteTitle.text.isNullOrEmpty()) {
-            etNoteTitle.error = "Note Title is Required"
-            //Toast.makeText(context, "Note Title is Required", Toast.LENGTH_SHORT).show()
+            etNoteTitle.error = getString(R.string.note_title_required)
         } else {
             noteViewModel =
                 ViewModelProvider.AndroidViewModelFactory(activity?.applicationContext as Application)
@@ -126,7 +125,7 @@ class CreateNoteFragment : Fragment(), EasyPermissions.PermissionCallbacks,
 
     private fun saveNote() {
         if (etNoteTitle.text.isNullOrEmpty()) {
-            etNoteTitle.error = "Note Title is Required"
+            etNoteTitle.error = getString(R.string.note_title_required)
             //Toast.makeText(context, "Note Title is Required", Toast.LENGTH_SHORT).show()
         } else {
             val note = Note()

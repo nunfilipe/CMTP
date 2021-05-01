@@ -3,7 +3,8 @@
     <string name="app_name">CMTP1</string>
     <string name="cmtp_notes_label">Notes</string>
     <string name="cmtp_maps_label">Maps</string>
-    <string name="cmtp_account_label">My acount</string>
+    <string name="cmtp_account_label">Login</string>
+    <string name="cmtp_account_leave_label">Logout</string>
 
 <!--    note-->
     <string name="notes">My Notes</string>
@@ -11,15 +12,16 @@
     <string name="notes_sub_title">Notes Sub Title</string>
     <string name="notes_desc">Enter Note Here</string>
     <string name="web_url">Enter Web Url</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
-<!--    <string name="storage_permission_text">This app needs access to your storage.</string>-->
     <string name="search">Search your notes</string>
     <string name="maps_api_key">Maps</string>
     <string name="title_activity_maps">Map</string>
     <string name="delete_note">Delete</string>
     <string name="delete_note_sheet">Delete Note</string>
     <string name="pick_color_sheet">Pick Color</string>
+    <string name="note_title_required">Note Title is Required</string>
+    <string name="selected">Selected</string>
 
 <!--    Login-->
     <string name="hint_email">Email</string>
@@ -31,5 +33,11 @@
     <string name="user_info_wrong">Wrong Info</string>
     <string name="login_fail">Login Fail</string>
     <string name="welcom">Welcom</string>
+
+<!--    Logout-->
+    <string name="logout">Logout</string>
+    <string name="leave">Do you really want to end your session?</string>
+    <string name="yes">Yes</string>
+    <string name="no">Cancel</string>
 
 </resources>
