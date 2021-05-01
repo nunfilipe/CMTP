@@ -10,6 +10,9 @@ interface EndPoints {
     @POST("/api/user/login")
     fun userLogin(@Field("payload") payload: String): Call<User>
 
+    @GET("/api/event/getAll")
+    fun getAllMarkers(): Call<List<Event>>
+
 /*    @GET("/users/")
     fun getUsers(): Call<List<User>>
 

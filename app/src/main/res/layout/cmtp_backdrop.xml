@@ -33,12 +33,12 @@
         android:textColor="@color/productGridBackgroundColor"
         android:text="@string/cmtp_account_label" />
 
-<!--    <com.google.android.material.button.MaterialButton
-        android:id="@+id/vg_leave"
+   <com.google.android.material.button.MaterialButton
+        android:id="@+id/cmtp_leave"
         style="@style/Widget.Shrine.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/productGridBackgroundColor"
-        android:text="@string/cmtp_account_leave_label" />-->
+        android:text="@string/cmtp_account_leave_label" />
 
 </merge>

@@ -61,6 +61,10 @@ class NoteFragment : Fragment(), NotesAdapter.NotesAdapterListener {
             (activity as NavigationHost).navigateTo(MapFragment(), true, false)
         }
 
+        view.app_bar_profile.setOnClickListener {
+            (activity as NavigationHost).navigateTo(LoginFragment(), true, false)
+        }
+
         return view
     }
 
@@ -163,7 +167,7 @@ class NoteFragment : Fragment(), NotesAdapter.NotesAdapterListener {
         if (size == 0) {
             actionMode?.finish()
         } else {
-            actionMode?.title = "$size Selected"
+            actionMode?.title = "$size" + getString(R.string.selected)
             actionMode?.invalidate()
         }
     }

@@ -8,5 +8,5 @@ interface NavigationHost {
 
     fun navigateTo(fragment: Fragment, addToBackstack: Boolean, animate: Boolean)
     fun navigateToWithData(fragment: Fragment, addToBackstack: Boolean, animate: Boolean,tag: String, data: Bundle)
-
+    fun logout()
 }

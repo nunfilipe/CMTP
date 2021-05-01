@@ -18,6 +18,7 @@ import ipvc.estg.cmtp1.R
 import ipvc.estg.cmtp1.api.EndPoints
 import ipvc.estg.cmtp1.api.ServiceBuilder
 import ipvc.estg.cmtp1.api.User
+import ipvc.estg.cmtp1.interfaces.NavigationHost
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_login.view.*
 import org.json.JSONObject
@@ -94,27 +95,28 @@ class LoginFragment : Fragment() {
                             )
 
                             if (rememberMe!!.isChecked) {
-                                val settings: SharedPreferences = context!!.getSharedPreferences(
+                                val sharedPref: SharedPreferences = context!!.getSharedPreferences(
                                     "REMEMBER",
                                     Context.MODE_PRIVATE
                                 )
-                                settings.edit().putString("username", "response").apply()
+                                sharedPref.edit().putString("username", "response").apply()
                             } else {
-                                val settings: SharedPreferences = context!!.getSharedPreferences(
+                                val sharedPref: SharedPreferences = context!!.getSharedPreferences(
                                     "REMEMBER",
                                     Context.MODE_PRIVATE
                                 )
-                                settings.edit().clear().apply()
+                                sharedPref.edit().clear().apply()
                             }
 
-                            val settings: SharedPreferences = context!!.getSharedPreferences(
+                            val sharedPref: SharedPreferences = context!!.getSharedPreferences(
                                 "AUTHENTICATION",
                                 Context.MODE_PRIVATE
                             )
-                            settings.edit().putInt("id_user", user.id).apply()
-                            settings.edit().putString("token", user.token).apply()
+                            sharedPref.edit().putInt("id_user", user.id).apply()
+                            sharedPref.edit().putString("token", user.token).apply()
 
-                            requireActivity().supportFragmentManager.popBackStack()
+                            (activity as NavigationHost).navigateTo(MapFragment(), false, false)
+                            //requireActivity().supportFragmentManager.popBackStack()
                             Toast.makeText(activity, getString(R.string.welcom), Toast.LENGTH_LONG)
                                 .show()
                         } else {
@@ -135,6 +137,7 @@ class LoginFragment : Fragment() {
 
                     override fun onFailure(call: Call<User>, t: Throwable) {
                         btnLogin!!.isEnabled = true
+                        Toast.makeText(activity, t.message, Toast.LENGTH_SHORT).show()
                         Log.i("Failure", t.toString())
                     }
                 })

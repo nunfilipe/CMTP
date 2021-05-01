@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 // Note: When you modify the database schema, you'll need to update the version number and define a migration strategy
 //For a sample, a destroy and re-create strategy can be sufficient. But, for a real app, you must implement a migration strategy.
 
-@Database(entities = arrayOf(Note::class), version = 1, exportSchema = false)
+@Database(entities = arrayOf(Note::class), version = 2, exportSchema = false)
 public abstract class NoteDB : RoomDatabase() {
 
     abstract fun noteDao(): NoteDao
