@@ -1,12 +1,12 @@
 <resources>
-<!--    menu-->
+    <!--    menu-->
     <string name="app_name">CMTP1</string>
     <string name="cmtp_notes_label">Notes</string>
     <string name="cmtp_maps_label">Maps</string>
     <string name="cmtp_account_label">Login</string>
     <string name="cmtp_account_leave_label">Logout</string>
 
-<!--    note-->
+    <!--    note-->
     <string name="notes">My Notes</string>
     <string name="notes_title">Notes Title</string>
     <string name="notes_sub_title">Notes Sub Title</string>
@@ -21,9 +21,9 @@
     <string name="delete_note_sheet">Delete Note</string>
     <string name="pick_color_sheet">Pick Color</string>
     <string name="note_title_required">Note Title is Required</string>
-    <string name="selected">Selected</string>
+    <string name="selected"> Selected</string>
 
-<!--    Login-->
+    <!--    Login-->
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
     <string name="remember_me">Remember me</string>
@@ -34,10 +34,28 @@
     <string name="login_fail">Login Fail</string>
     <string name="welcom">Welcom</string>
 
-<!--    Logout-->
+    <!--    Logout-->
     <string name="logout">Logout</string>
     <string name="leave">Do you really want to end your session?</string>
     <string name="yes">Yes</string>
     <string name="no">Cancel</string>
+
+
+    <!--add Event-->
+    <string name="toast_add_event">Event add</string>
+    <string name="toast_error_event">Event error</string>
+    <string name="add_textview_localization">Localization</string>
+    <string name="add_textview_foto">Photo</string>
+    <string name="btn_capture_image">Capture</string>
+    <string name="add_textview_category">Category</string>
+    <string name="add_textview_description">Description</string>
+    <string name="add_btn_save">Save</string>
+    <string name="text_description_required">Required</string>
+    <string-array name="category">
+        <item>Accident</item>
+        <item>Trash</item>
+        <item>Road hole</item>
+        <item>Signal Missing</item>
+    </string-array>
 
 </resources>
