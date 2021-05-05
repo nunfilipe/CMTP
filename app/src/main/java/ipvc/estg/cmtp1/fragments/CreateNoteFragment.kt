@@ -115,8 +115,8 @@ class CreateNoteFragment : Fragment(), EasyPermissions.PermissionCallbacks,
                     notes.dateTime = currentDate
                     notes.color = selectedColor
                     noteViewModel.updateNote(notes)
-                    etNoteTitle.setText("")
-                    etNoteDesc.setText("")
+                    etNoteTitle.text = null
+                    etNoteDesc.text = null
                     requireActivity().supportFragmentManager.popBackStack()
                 })
             }
@@ -126,7 +126,7 @@ class CreateNoteFragment : Fragment(), EasyPermissions.PermissionCallbacks,
     private fun saveNote() {
         if (etNoteTitle.text.isNullOrEmpty()) {
             etNoteTitle.error = getString(R.string.note_title_required)
-            //Toast.makeText(context, "Note Title is Required", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, getString(R.string.note_title_required), Toast.LENGTH_SHORT).show()
         } else {
             val note = Note()
             note.title = etNoteTitle.text.toString()
@@ -137,10 +137,10 @@ class CreateNoteFragment : Fragment(), EasyPermissions.PermissionCallbacks,
                 ViewModelProvider.AndroidViewModelFactory(activity?.applicationContext as Application)
                     .create(NoteViewModel::class.java)
             noteViewModel.insertNotes(note)
-            etNoteTitle.setText("")
-            etNoteDesc.setText("")
-            layoutImage.visibility = View.GONE
-            imgNote.visibility = View.GONE
+            etNoteTitle.text = null
+            etNoteDesc.text = null
+            //layoutImage.visibility = View.GONE
+            //imgNote.visibility = View.GONE
             requireActivity().supportFragmentManager.popBackStack()
         }
 
@@ -179,9 +179,6 @@ class CreateNoteFragment : Fragment(), EasyPermissions.PermissionCallbacks,
                     deleteNote()
                 }
                 else -> {
-                    /*layoutImage.visibility = View.GONE
-                    imgNote.visibility = View.GONE
-                    layoutWebUrl.visibility = View.GONE*/
                     selectedColor = p1.getStringExtra("selectedColor")!!
                     colorView.setBackgroundColor(Color.parseColor(selectedColor))
                 }
@@ -199,28 +196,6 @@ class CreateNoteFragment : Fragment(), EasyPermissions.PermissionCallbacks,
         LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(BroadcastReceiver)
         super.onDestroy()
     }
-
-/*    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_CODE_IMAGE && resultCode == RESULT_OK) {
-            if (data != null) {
-                val selectedImageUrl = data.data
-                if (selectedImageUrl != null) {
-                    try {
-                        val inputStream =
-                            requireActivity().contentResolver.openInputStream(selectedImageUrl)
-                        val bitmap = BitmapFactory.decodeStream(inputStream)
-                        imgNote.setImageBitmap(bitmap)
-                        imgNote.visibility = View.VISIBLE
-                        layoutImage.visibility = View.VISIBLE
-                    } catch (e: Exception) {
-                        Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT).show()
-                    }
-
-                }
-            }
-        }
-    }*/
 
     override fun onRequestPermissionsResult(
         requestCode: Int,

@@ -44,7 +44,7 @@ class NavigationIconClickListener @JvmOverloads internal constructor(
         var translateY = height - context.resources.getDimensionPixelSize(R.dimen.shr_product_grid_reveal_height)
 
         if (context.resources!!.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            translateY = height - context.resources.getDimensionPixelSize(R.dimen.shr_product_grid_reveal_height)
+            translateY = height - context.resources.getDimensionPixelSize(R.dimen.shr_product_grid_reveal_height_land)
         }
 
 

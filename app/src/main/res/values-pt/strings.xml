@@ -1,4 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--    menu-->
     <string name="app_name">CMTP1</string>
+    <string name="cmtp_notes_label">Notas</string>
+    <string name="cmtp_maps_label">Mapas</string>
+    <string name="cmtp_account_label">Login</string>
+    <string name="cmtp_account_leave_label">Logout</string>
+
+    <!--    note-->
+    <string name="notes">Minhas Notas</string>
+    <string name="notes_title">Titulo</string>
+    <string name="notes_sub_title">Subtitulo</string>
+    <string name="notes_desc">Introduza a sua Nota</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancelar</string>
+    <string name="search">Pesquisar Notas</string>
+    <string name="maps_api_key">Maps</string>
+    <string name="title_activity_maps">Mapas</string>
+    <string name="delete_note">Apagar</string>
+    <string name="delete_note_sheet">Apagar Nota</string>
+    <string name="pick_color_sheet">Escolher a cor</string>
+    <string name="note_title_required">Titulo da Nota obrigatório</string>
+    <string name="selected"> Selecionada</string>
+
+    <!--    Login-->
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="remember_me">Lembrar-me</string>
+    <string name="no_account">Creat acount</string>
+    <string name="btn_login">Login</string>
+    <string name="required">Este campo é obrigatório</string>
+    <string name="user_info_wrong">Infromação invalida</string>
+    <string name="login_fail">Falha ao fazer o Login</string>
+    <string name="welcom">Bem vindo</string>
+
+    <!--    Logout-->
+    <string name="logout">Logout</string>
+    <string name="leave">Quer mesmo fazer o Logout?</string>
+    <string name="yes">Sim</string>
+    <string name="no">Cancelar</string>
+
+
+    <!--add Event-->
+    <string name="toast_add_event">Evento adicionado</string>
+    <string name="toast_error_event">Erro ao Adicionar</string>
+    <string name="add_textview_localization">Localização</string>
+    <string name="add_textview_foto">Foto</string>
+    <string name="btn_capture_image">Capturar</string>
+    <string name="add_textview_category">Categoria</string>
+    <string name="add_textview_description">Descrição</string>
+    <string name="add_btn_save">Guardar</string>
+    <string name="text_description_required">Required</string>
+    <string-array name="category">
+        <item>Acidente</item>
+        <item>Lixo na via</item>
+        <item>Estrada Degradada</item>
+        <item>Falta Sinalização</item>
+    </string-array>
 </resources>
