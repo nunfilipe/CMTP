@@ -13,8 +13,15 @@ interface EndPoints {
     @GET("/api/event/getAll")
     fun getAllMarkers(): Call<List<Event>>
 
+    @FormUrlEncoded
+    @POST("/api/event/insert")
+    fun insertPoint(@Field("payload") payload: String?, @Header("Authorization") auth : String): Call<Event>
+
+
+
 /*    @GET("/users/")
     fun getUsers(): Call<List<User>>
+
 
     @GET("/users/{id}")
     fun getUserById(@Path("id") id: Int): Call<User>

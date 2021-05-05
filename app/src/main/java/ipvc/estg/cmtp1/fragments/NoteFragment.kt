@@ -9,6 +9,7 @@ import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -31,6 +32,7 @@ class NoteFragment : Fragment(), NotesAdapter.NotesAdapterListener {
     var arrNotes = ArrayList<Note>()
     private lateinit var noteViewModel: NoteViewModel
     private var notesAdapter: NotesAdapter? = null
+    var idUser: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +65,20 @@ class NoteFragment : Fragment(), NotesAdapter.NotesAdapterListener {
 
         view.app_bar_profile.setOnClickListener {
             (activity as NavigationHost).navigateTo(LoginFragment(), true, false)
+        }
+
+        if(idUser != 0){
+            view.cmtp_leave.isVisible = true
+            view.app_bar_profile.isVisible = false
+            view.cmtp_leave.setOnClickListener {
+                (activity as NavigationHost).logout()
+            }
+        }else{
+            view.app_bar_profile.isVisible = true
+            view.cmtp_leave.isVisible = false
+            view.app_bar_profile.setOnClickListener {
+                (activity as NavigationHost).navigateTo(LoginFragment(), true, false)
+            }
         }
 
         return view

@@ -48,7 +48,6 @@ class LoginFragment : Fragment() {
 
     private fun declareItems(view: View) {
         btnLogin = view.findViewById(R.id.btn_login)
-        btnRegister = view.findViewById(R.id.btn_register)
         rememberMe = view.findViewById(R.id.remember_me)
         if (me != null) {
             view.username_edit_text.setText(me)
