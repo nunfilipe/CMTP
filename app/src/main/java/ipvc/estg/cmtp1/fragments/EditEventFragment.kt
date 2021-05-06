@@ -162,6 +162,7 @@ class EditEventFragment : Fragment() {
             spinner_category_edit.isEnabled = false
             text_description_event_edit.isEnabled = false
             btn_saveEvent_edit.isVisible = false
+            delete_event.isVisible = false
         }
         if (spinner != null) ArrayAdapter.createFromResource(
             activity!!,
@@ -185,6 +186,11 @@ class EditEventFragment : Fragment() {
         btn_capture_edit.setOnClickListener {
             capturePhoto()
         }
+
+        delete_event.setOnClickListener {
+            deleteEvent()
+        }
+
 
         btn_saveEvent_edit.setOnClickListener {
             if (text_description_event_edit.text.isNullOrEmpty()) {
@@ -232,6 +238,39 @@ class EditEventFragment : Fragment() {
             }
         }
 
+    }
+
+
+    private fun deleteEvent() {
+        delete_event!!.isEnabled = false
+        val obj = JSONObject()
+        obj.put("id", eventId)
+        obj.put("user_id", userId)
+
+        payload = obj.toString()
+        payload = Base64.encodeToString(
+            obj.toString().toByteArray(charset("UTF-8")), Base64.DEFAULT
+        )
+        val request = ServiceBuilder.buildService(EndPoints::class.java)
+        val call = request.deleteEvent(payload = payload!!, auth = idToken!!)
+
+        call.enqueue(object : Callback<Event> {
+            override fun onResponse(call: Call<Event>, response: Response<Event>) {
+                if (response.isSuccessful) {
+                    Toast.makeText(activity, R.string.toast_delete_event, Toast.LENGTH_LONG).show()
+                    btn_saveEvent_edit!!.isEnabled = true
+                    activity!!.onBackPressed()
+                } else {
+                    btn_saveEvent_edit!!.isEnabled = true
+                    Toast.makeText(context!!, getString(R.string.toast_fail_delete_event), Toast.LENGTH_LONG).show()
+                }
+            }
+
+            override fun onFailure(call: Call<Event>, t: Throwable) {
+                Log.i("Failure", t.toString())
+                Toast.makeText(context, t.message, Toast.LENGTH_LONG).show()
+            }
+        })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

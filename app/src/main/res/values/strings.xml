@@ -60,5 +60,7 @@
     <string name="toast_edit_event">Event successfully edited</string>
     <string name="toast_fail_edit_event">Problems Editing</string>
     <string name="toast_add_fail_event">Fail add Event</string>
+    <string name="toast_delete_event">Delete Event</string>
+    <string name="toast_fail_delete_event">Fail delete event</string>
 
 </resources>
