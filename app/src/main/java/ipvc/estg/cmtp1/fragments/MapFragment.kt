@@ -3,72 +3,62 @@ package ipvc.estg.cmtp1.fragments
 import android.Manifest
 import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.app.Activity
-import android.app.Application
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.location.Location
-import android.os.Build
 import android.os.Bundle
-import android.os.Looper
+import android.util.Base64
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.animation.AccelerateDecelerateInterpolator
-import android.widget.Button
-import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.PermissionChecker.checkPermission
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.gson.Gson
 import ipvc.estg.cmtp1.Listener.NavigationIconClickListener
 import ipvc.estg.cmtp1.R
-import ipvc.estg.cmtp1.adapter.NotesAdapter
 import ipvc.estg.cmtp1.api.Category
 import ipvc.estg.cmtp1.api.EndPoints
 import ipvc.estg.cmtp1.api.Event
 import ipvc.estg.cmtp1.api.ServiceBuilder
-import ipvc.estg.cmtp1.entities.Note
 import ipvc.estg.cmtp1.interfaces.NavigationHost
-import ipvc.estg.cmtp1.viewModel.NoteViewModel
 import kotlinx.android.synthetic.main.activity_main.view.app_bar
 import kotlinx.android.synthetic.main.cmtp_backdrop.view.*
 import kotlinx.android.synthetic.main.fragment_login.view.*
 import kotlinx.android.synthetic.main.fragment_map.*
 import kotlinx.android.synthetic.main.fragment_map.view.*
 import kotlinx.android.synthetic.main.fragment_notes.*
-import kotlinx.android.synthetic.main.fragment_notes.fabBtnCreateNote
 import kotlinx.android.synthetic.main.fragment_notes.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
 import java.util.*
 
 
 class MapFragment : Fragment(), OnMapReadyCallback {
 
     private val REQUEST_LOCATION_PERMISSION = 1
-    private lateinit var nMap: GoogleMap
+    private var nMap: GoogleMap? = null
     private var idUser: Int? = null
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private var latitude: Double? = null
     private var longitude: Double? = null
     private var lastKnownLocation: Location? = null
+    private val categoryList: MutableList<Category> = ArrayList<Category>()
 
     private fun isPermissionGranted(): Boolean {
         return context?.let {
@@ -106,14 +96,14 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             fusedLocationProviderClient.lastLocation.addOnCompleteListener { task ->
                 val location: Location? = task.result
                 if (location == null) {
-                    nMap.isMyLocationEnabled = true
+                    nMap!!.isMyLocationEnabled = true
                 } else {
                     latitude = location.latitude
                     longitude = location.longitude
                 }
             }
 
-            nMap.isMyLocationEnabled = true
+            nMap!!.isMyLocationEnabled = true
         } else {
             ActivityCompat.requestPermissions(
                 context as Activity,
@@ -150,6 +140,13 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val arr = resources.getStringArray(R.array.category)
+
+        categoryList.add(Category(id="1", arr[0].toString()))
+        categoryList.add(Category(id="2", arr[1].toString()))
+        categoryList.add(Category(id="3", arr[2].toString()))
+        categoryList.add(Category(id="4", arr[3].toString()))
+
         val view = inflater.inflate(R.layout.fragment_map, container, false)
         //view.app_bar.title = getString(R.string.app_name)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
@@ -206,13 +203,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                     Manifest.permission.ACCESS_COARSE_LOCATION
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
                 return@setOnClickListener
             }
 
@@ -246,6 +236,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
 
     override fun onMapReady(googleMap: GoogleMap) {
+
         nMap = googleMap
         googleMap.clear()
         enableMyLocation()
@@ -254,41 +245,9 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         googleMap.uiSettings.isZoomControlsEnabled = false //button zoom
         googleMap.uiSettings.isMapToolbarEnabled = false;
 
-        val request = ServiceBuilder.buildService(EndPoints::class.java)
-        val call = request.getAllMarkers()
-        call.enqueue(object : Callback<List<Event>> {
-            override fun onResponse(call: Call<List<Event>>, response: Response<List<Event>>) {
-                val data = response.body()
-                data.forEach {
+        getMarkers()
 
-                    val item = Event(
-                        id = it.id,
-                        user_id = it.user_id,
-                        location = it.location,
-                        latitude = it.latitude,
-                        longitude = it.longitude,
-                        photo = it.photo,
-                        description = it.description,
-                        date = it.date,
-                        time = it.time,
-                        category = it.category
-                    )
-
-                    val marker = nMap.addMarker(
-                        MarkerOptions().position(LatLng(it.latitude, it.longitude))
-                            .title(it.location)
-                    )
-                    marker!!.tag = item
-                }
-
-            }
-
-            override fun onFailure(call: Call<List<Event>>, t: Throwable) {
-                Toast.makeText(activity, t.message, Toast.LENGTH_SHORT).show()
-            }
-        })
-
-        nMap.setOnInfoWindowClickListener { marker ->
+        nMap!!.setOnInfoWindowClickListener { marker ->
             val it: Event = (marker.tag as Event);
             val bundle = Bundle()
             bundle.putString("event_id", it.id)
@@ -328,7 +287,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                         // Set the map's camera position to the current location of the device.
                         lastKnownLocation = task.result
                         if (lastKnownLocation != null) {
-                            nMap.moveCamera(
+                            nMap!!.moveCamera(
                                 CameraUpdateFactory.newLatLngZoom(
                                     LatLng(
                                         lastKnownLocation!!.latitude,
@@ -342,7 +301,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                         Log.e(TAG, "Exception: %s", task.exception)
                         /*  nMap.moveCamera(CameraUpdateFactory
                               .newLatLngZoom(defaultLocation, DEFAULT_ZOOM.toFloat()))*/
-                        nMap.uiSettings.isMyLocationButtonEnabled = false
+                        nMap!!.uiSettings.isMyLocationButtonEnabled = false
                     }
                 }
             }
@@ -361,6 +320,125 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
         // Used for selecting the current place.
         private const val M_MAX_ENTRIES = 5*/
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, menuInflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, menuInflater)
+        menuInflater.inflate(R.menu.toolbar_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.filter -> {
+                (activity as NavigationHost).navigateTo(FilterFragment(), addToBackstack = true, animate = false)
+                true
+            }
+            else -> false
+        }
+    }
+
+    fun getMarkers(){
+        if (ActivityCompat.checkSelfPermission(context!!, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context!!, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return
+        }
+        nMap!!.clear()
+        val preferences: SharedPreferences = context!!.getSharedPreferences("FILTERMAP", Context.MODE_PRIVATE)
+        val filter : HashMap<Int, Boolean> = HashMap<Int, Boolean> ()
+        categoryList.forEach {
+            filter[it.id.toInt()] = preferences.getBoolean(it.id,true)
+        }
+
+        val gson = Gson()
+
+
+        val payload = Base64.encodeToString(
+            gson.toJson(filter).toByteArray(charset("UTF-8")),
+            Base64.DEFAULT
+        )
+
+        Log.e("payload",payload)
+
+        val radius = preferences.getString("radius","0")!!.toFloat()
+
+        val request = ServiceBuilder.buildService(EndPoints::class.java)
+        fusedLocationProviderClient.lastLocation.addOnSuccessListener(activity!!) { location ->
+
+            if(radius != 0f){
+                nMap!!.addCircle(
+                    CircleOptions()
+                        .center(LatLng(location.latitude, location.longitude))
+                        .radius(radius.toDouble())
+                        .strokeColor(R.color.cpb_blue_dark)
+                        .fillColor(Color.TRANSPARENT)
+                )
+            }
+
+            val call = request.getAllMarkers(payload)
+            call.enqueue(object : Callback<List<Event>> {
+                override fun onResponse(call: Call<List<Event>>, response: Response<List<Event>>) {
+                    Log.e("response",response.body().toString())
+                    val data = response.body()
+                    data.forEach {
+
+                        val item = Event(
+                            id = it.id,
+                            user_id = it.user_id,
+                            location = it.location,
+                            latitude = it.latitude,
+                            longitude = it.longitude,
+                            photo = it.photo,
+                            description = it.description,
+                            date = it.date,
+                            time = it.time,
+                            category = it.category
+                        )
+
+                        if(radius!!.toFloat() == 0f){
+                            val marker = nMap!!.addMarker(
+                                MarkerOptions().position(LatLng(it.latitude, it.longitude))
+                                    .title(it.location)
+                            )
+                            marker!!.tag = item
+                        }else{
+                            val locationA = Location("me")
+
+                            locationA.latitude = location.latitude
+                            locationA.longitude = location.longitude
+
+                            val locationB = Location("marker")
+
+                            locationB.latitude = item.latitude
+                            locationB.longitude = item.longitude
+                            val distance: Float = locationA.distanceTo(locationB)
+                            Log.e("distance", distance.toString())
+                            Log.e("locationA", locationA.toString())
+                            Log.e("locationB", locationB.toString())
+                            if (distance < radius) {
+                                val marker = nMap!!.addMarker(
+                                    MarkerOptions().position(LatLng(it.latitude, it.longitude))
+                                        .title(it.location)
+                                )
+                                marker!!.tag = item
+                            }
+                        }
+
+
+                    }
+
+                }
+
+                override fun onFailure(call: Call<List<Event>>, t: Throwable) {
+                    Toast.makeText(activity, t.message, Toast.LENGTH_SHORT).show()
+                }
+            })
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(nMap != null){
+            getMarkers()
+        }
     }
 
 }

@@ -6,12 +6,13 @@
     <string name="cmtp_account_label">Login</string>
     <string name="cmtp_account_leave_label">Logout</string>
 
+    <string name="toolbar_filter">Filter</string>
+
     <!--    note-->
     <string name="notes">My Notes</string>
     <string name="notes_title">Notes Title</string>
     <string name="notes_sub_title">Notes Sub Title</string>
     <string name="notes_desc">Enter Note Here</string>
-    <string name="web_url">Enter Web Url</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="search">Search your notes</string>
@@ -62,5 +63,12 @@
     <string name="toast_add_fail_event">Fail add Event</string>
     <string name="toast_delete_event">Delete Event</string>
     <string name="toast_fail_delete_event">Fail delete event</string>
+
+    <!-- Filter -->
+    <string name="btn_apply_filter">Apply</string>
+    <string name="textview_radius_filter">Radius</string>
+    <string name="textview_filter">Filters</string>
+    <string name="radius_range">Radius      de %1$sM a %2$sM</string>
+    <string name="textview_category_filter">Category</string>
 
 </resources>
