@@ -129,7 +129,6 @@ class AddEventFragment : Fragment() {
 
         val bundle = this.arguments
         if (bundle != null) {
-            location = bundle.getString("location")
             latitude = bundle.getDouble("latitude", 0.0)
             longitude = bundle.getDouble("longitude", 0.0)
             setMiniMap()
@@ -154,8 +153,8 @@ class AddEventFragment : Fragment() {
                 add_textview_foto.error = getString(R.string.text_description_required)
             }else{
                     description = view.text_description_event.text.toString()
-                    val obj = JSONObject()
                     btn_saveEvent!!.isEnabled = false
+                    val obj = JSONObject()
                     obj.put("user_id", idUser)
                     location = getCompleteAddressString(latitude!!, longitude!!)
                     obj.put("location", location)
@@ -169,7 +168,8 @@ class AddEventFragment : Fragment() {
                         obj.put("image", base64Encoded)
                     }
                     obj.put("description", description)
-                    payload = obj.toString()
+                    obj.put("categories_id", spinner!!.selectedItemPosition+1)
+                payload = obj.toString()
                     payload = Base64.encodeToString(
                         payload?.toByteArray(charset("UTF-8")), Base64.DEFAULT
                     )
@@ -180,15 +180,15 @@ class AddEventFragment : Fragment() {
                         override fun onResponse(call: Call<Event>, response: Response<Event>) {
                             if (response.isSuccessful) {
                                 btn_saveEvent!!.isEnabled = true
-                                activity!!.onBackPressed()
                                 Toast.makeText(
                                     context,
                                     getString(R.string.toast_add_event),
                                     Toast.LENGTH_LONG
                                 ).show()
+                                activity!!.onBackPressed()
                             } else {
                                 btn_saveEvent!!.isEnabled = true
-                                Toast.makeText(context, getString(R.string.welcom), Toast.LENGTH_LONG)
+                                Toast.makeText(context, getString(R.string.toast_add_fail_event), Toast.LENGTH_LONG)
                                     .show()
                             }
                         }
@@ -238,7 +238,7 @@ class AddEventFragment : Fragment() {
         val mapFragment = childFragmentManager.findFragmentById(R.id.location_img) as SupportMapFragment?
         Objects.requireNonNull(mapFragment!!.view)!!.isClickable = false
         mapFragment.getMapAsync(OnMapReadyCallback {
-            it.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(latitude!!, longitude!!), 10f))
+            it.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(latitude!!, longitude!!), 14F))
             it.addMarker(
                 MarkerOptions().position(LatLng(latitude!!, longitude!!)).draggable(false)
             )

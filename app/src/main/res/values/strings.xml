@@ -57,5 +57,8 @@
         <item>Road hole</item>
         <item>Signal Missing</item>
     </string-array>
+    <string name="toast_edit_event">Event successfully edited</string>
+    <string name="toast_fail_edit_event">Problems Editing</string>
+    <string name="toast_add_fail_event">Fail add Event</string>
 
 </resources>

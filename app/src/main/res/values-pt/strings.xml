@@ -32,7 +32,7 @@
     <string name="required">Este campo é obrigatório</string>
     <string name="user_info_wrong">Infromação invalida</string>
     <string name="login_fail">Falha ao fazer o Login</string>
-    <string name="welcom">Bem vindo</string>
+    <string name="welcom">Bem-vindo</string>
 
     <!--    Logout-->
     <string name="logout">Logout</string>
@@ -51,6 +51,9 @@
     <string name="add_textview_description">Descrição</string>
     <string name="add_btn_save">Guardar</string>
     <string name="text_description_required">Required</string>
+    <string name="toast_edit_event">Evento editado com sucesso</string>
+    <string name="toast_fail_edit_event">Falha ao Editar</string>
+    <string name="toast_add_fail_event">Falha adicionar evento</string>
     <string-array name="category">
         <item>Acidente</item>
         <item>Lixo na via</item>
