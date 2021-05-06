@@ -33,7 +33,9 @@
             android:paddingRight="12dp"
             app:contentInsetStart="0dp"
             app:navigationIcon="@drawable/ic_menu"
-            app:title="@string/app_name" />
+            app:title="@string/app_name" >
+    </androidx.appcompat.widget.Toolbar>
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <FrameLayout

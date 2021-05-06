@@ -12,8 +12,6 @@
     android:background="@color/colorPrimary"
     tools:context=".fragments.NoteFragment">
 
-
-
     <FrameLayout
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
