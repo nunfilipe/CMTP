@@ -78,6 +78,7 @@ class LoginFragment : Fragment() {
                 payload = obj.toString()
                 payload = Base64.encodeToString(
                     payload?.toByteArray(charset("UTF-8")), Base64.DEFAULT
+                            //obj.toString().toByteArray(charset("UTF-8")), Base64.DEFAULT
                 )
                 val request = ServiceBuilder.buildService(EndPoints::class.java)
                 val call = request.userLogin(payload = payload!!)

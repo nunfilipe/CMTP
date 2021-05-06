@@ -68,7 +68,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     private var longitude: Double? = null
     private var lastKnownLocation: Location? = null
 
-    private fun isPermissionGranted() : Boolean {
+    private fun isPermissionGranted(): Boolean {
         return context?.let {
             ContextCompat.checkSelfPermission(
                 it,
@@ -112,8 +112,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             }
 
             nMap.isMyLocationEnabled = true
-        }
-        else {
+        } else {
             ActivityCompat.requestPermissions(
                 context as Activity,
                 arrayOf(ACCESS_FINE_LOCATION),
@@ -174,13 +173,13 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             (activity as NavigationHost).navigateTo(MapFragment(), true, false)
         }
 
-        if(idUser != 0){
+        if (idUser != 0) {
             view.cmtp_leave.isVisible = true
             view.app_bar_profile.isVisible = false
             view.cmtp_leave.setOnClickListener {
                 (activity as NavigationHost).logout()
             }
-        }else{
+        } else {
             view.app_bar_profile.isVisible = true
             view.cmtp_leave.isVisible = false
             view.app_bar_profile.setOnClickListener {
@@ -193,20 +192,28 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context)
+
+
         fabBtnCreateEvent.setOnClickListener {
             //(activity as NavigationHost).navigateTo(AddEventFragment(), true, false)
-            val bundle = Bundle()
-            bundle.putString("lt","location")
-            bundle.putDouble("latitude", latitude!!)
-            bundle.putDouble("longitude", longitude!!)
-            (activity as NavigationHost).navigateToWithData(
-                AddEventFragment(),
-                addToBackstack = true,
-                animate = true,
-                tag = "location",
-                data = bundle
-            )
+
+            if (idUser != 0) {
+                val bundle = Bundle()
+                bundle.putString("lt", "location")
+                bundle.putDouble("latitude", latitude!!)
+                bundle.putDouble("longitude", longitude!!)
+                (activity as NavigationHost).navigateToWithData(
+                    AddEventFragment(),
+                    addToBackstack = true,
+                    animate = true,
+                    tag = "location",
+                    data = bundle
+                )
+            } else {
+                (activity as NavigationHost).navigateTo(LoginFragment(), true, false)
+            }
         }
+
     }
 
 
@@ -227,26 +234,27 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
         val request = ServiceBuilder.buildService(EndPoints::class.java)
         val call = request.getAllMarkers()
-
         call.enqueue(object : Callback<List<Event>> {
             override fun onResponse(call: Call<List<Event>>, response: Response<List<Event>>) {
                 val data = response.body()
-                data.forEach{
+                data.forEach {
 
-                    val item = Event(id = it.id,
-                    user_id = it.user_id,
-                    location = it.location,
-                    latitude = it.latitude,
-                    longitude =  it.longitude,
-                    photo =  it.photo,
-                    description = it.description,
-                    date =  it.date,
-                    time =  it.time,
-                    category =  it.category)
+                    val item = Event(
+                        id = it.id,
+                        user_id = it.user_id,
+                        location = it.location,
+                        latitude = it.latitude,
+                        longitude = it.longitude,
+                        photo = it.photo,
+                        description = it.description,
+                        date = it.date,
+                        time = it.time,
+                        category = it.category
+                    )
 
-                    val marker =  nMap.addMarker(MarkerOptions()
-                        .position(LatLng(it.latitude, it.longitude))
-                        .title(it.location)
+                    val marker = nMap.addMarker(
+                        MarkerOptions().position(LatLng(it.latitude, it.longitude))
+                            .title(it.location)
                     )
                     marker!!.tag = item
                 }
@@ -257,10 +265,34 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 Toast.makeText(activity, t.message, Toast.LENGTH_SHORT).show()
             }
         })
+
+        nMap.setOnInfoWindowClickListener { marker ->
+            val it: Event = (marker.tag as Event);
+            val bundle = Bundle()
+            bundle.putString("event_id", it.id)
+            bundle.putString("user_id", it.user_id)
+            bundle.putString("location", it.location)
+            bundle.putDouble("latitude", it.latitude)
+            bundle.putDouble("longitude", it.longitude)
+            bundle.putString("photo", it.photo)
+            bundle.putString("description", it.description)
+            bundle.putString("date", it.date)
+            bundle.putString("time", it.time)
+            bundle.putInt("category", it.category.id.toInt())
+            (activity as NavigationHost).navigateToWithData(
+                EditEventFragment(),
+                addToBackstack = true,
+                animate = true,
+                tag = "event",
+                data = bundle
+            )
+
+        }
     }
+
     /**
-    * Gets the current location of the device, and positions the map's camera.
-    */
+     * Gets the current location of the device, and positions the map's camera.
+     */
     private fun getDeviceLocation() {
         /*
          * Get the best and most recent location of the device, which may be null in rare
@@ -274,15 +306,20 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                         // Set the map's camera position to the current location of the device.
                         lastKnownLocation = task.result
                         if (lastKnownLocation != null) {
-                            nMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                                LatLng(lastKnownLocation!!.latitude,
-                                    lastKnownLocation!!.longitude), DEFAULT_ZOOM.toFloat()))
+                            nMap.moveCamera(
+                                CameraUpdateFactory.newLatLngZoom(
+                                    LatLng(
+                                        lastKnownLocation!!.latitude,
+                                        lastKnownLocation!!.longitude
+                                    ), DEFAULT_ZOOM.toFloat()
+                                )
+                            )
                         }
                     } else {
                         Log.d(TAG, "Current location is null. Using defaults.")
                         Log.e(TAG, "Exception: %s", task.exception)
-                      /*  nMap.moveCamera(CameraUpdateFactory
-                            .newLatLngZoom(defaultLocation, DEFAULT_ZOOM.toFloat()))*/
+                        /*  nMap.moveCamera(CameraUpdateFactory
+                              .newLatLngZoom(defaultLocation, DEFAULT_ZOOM.toFloat()))*/
                         nMap.uiSettings.isMyLocationButtonEnabled = false
                     }
                 }
