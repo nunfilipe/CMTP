@@ -7,6 +7,8 @@
     <string name="cmtp_account_label">Login</string>
     <string name="cmtp_account_leave_label">Logout</string>
 
+    <string name="toolbar_filter">Filtro</string>
+
     <!--    note-->
     <string name="notes">Minhas Notas</string>
     <string name="notes_title">Titulo</string>
@@ -54,6 +56,8 @@
     <string name="toast_edit_event">Evento editado com sucesso</string>
     <string name="toast_fail_edit_event">Falha ao Editar</string>
     <string name="toast_add_fail_event">Falha adicionar evento</string>
+    <string name="toast_delete_event">Apagar Evento</string>
+    <string name="toast_fail_delete_event">Falha ao apagar evento</string>
     <string-array name="category">
         <item>Acidente</item>
         <item>Lixo na via</item>

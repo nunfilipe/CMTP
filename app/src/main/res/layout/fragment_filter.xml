@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:layout_behavior="@string/bottom_sheet_behavior"
+    tools:context=".fragments.MapFragment">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:clipToPadding="false">
+
+        <LinearLayout
+            style="@style/Widget.Shrine.Backdrop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingTop="88dp">
+
+            <!--<include layout="@layout/vg_backdrop" />-->
+        </LinearLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:requiresFadingEdge="horizontal|vertical"
+            android:id="@+id/cart_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="56dp"
+            android:background="@color/productGridBackgroundColor"
+            android:backgroundTint="@color/white"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <RelativeLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:id="@+id/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="#777777" />
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="17sp"
+                    android:id="@+id/category"
+                    android:text="@string/textview_category_filter"
+                    android:padding="10dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+              <!--  <Button
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_marginEnd="20dp"
+                    android:gravity="end"
+
+                    android:layout_alignParentEnd="true"
+                    android:textSize="12sp"
+                    android:id="@+id/category_clear"
+                    android:text="Limpar"
+                    android:padding="10dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/grey_light"
+                    android:layout_height="wrap_content"/>-->
+
+                <FrameLayout
+                    android:layout_below="@+id/category"
+                    android:visibility="visible"
+                    android:id="@+id/progress_bar_frame"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipChildren="false"
+                    android:clipToPadding="false">
+
+     <!--               <ProgressBar
+                        android:background="@color/white"
+                        android:id="@+id/progress_bar"
+                        style="@style/Base.Widget.AppCompat.ProgressBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:indeterminate="true"
+                        android:visibility="visible" />-->
+
+                </FrameLayout>
+
+                <HorizontalScrollView
+                    android:visibility="visible"
+                    android:layout_below="@+id/category"
+                    android:id="@+id/horizontal_scroll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="80dp">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <RadioGroup
+                            android:layout_alignParentStart="true"
+                            android:id="@+id/fancy_radio_group"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:padding="10dp"
+                            android:layout_marginStart="10dp"
+                            android:orientation="horizontal">
+
+                        </RadioGroup>
+
+                    </RelativeLayout>
+
+                </HorizontalScrollView>
+
+                <View
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/divider2"
+
+                    android:layout_below="@+id/horizontal_scroll"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="#777777" />
+
+                <RelativeLayout
+                    android:id="@+id/price_slider_comp"
+                    android:layout_below="@+id/divider2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:textSize="17sp"
+                        android:id="@+id/radius"
+                        android:padding="10dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/textview_radius_filter"/>
+
+                    <com.google.android.material.slider.Slider
+                        android:layout_below="@+id/radius"
+                        android:id="@+id/slider"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:valueFrom="0"
+                        android:valueTo="5000"
+                        android:stepSize="1"/>
+                </RelativeLayout>
+
+                <View
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/divider3"
+                    android:layout_below="@+id/price_slider_comp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="#777777" />
+
+                <Button
+                    android:id="@+id/filter_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/divider3"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/btn_apply_filter">
+                </Button>
+            </RelativeLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:elevation="0dp">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/btn_close_filter"
+                style="@style/Widget.Shrine.Toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:backgroundTint="@color/white"
+                android:paddingStart="12dp"
+                android:paddingLeft="12dp"
+                android:paddingEnd="12dp"
+                android:paddingRight="12dp"
+                app:contentInsetStart="0dp"
+                app:navigationIcon="@drawable/ic_back"
+                app:title="@string/textview_filter" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+    </FrameLayout>
+
+
+
+</LinearLayout>

@@ -16,7 +16,6 @@ import kotlinx.android.synthetic.main.fragment_notes_bottom_sheet.*
 class NoteBottomSheetFragment : BottomSheetDialogFragment() {
     var selectedColor = "#171C26"
 
-
     companion object {
         var noteId = -1
         fun newInstance(id:Int): NoteBottomSheetFragment{

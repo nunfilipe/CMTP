@@ -11,8 +11,9 @@ interface EndPoints {
     @POST("/api/user/login")
     fun userLogin(@Field("payload") payload: String): Call<User>
 
-    @GET("/api/event/getAll")
-    fun getAllMarkers(): Call<List<Event>>
+    @FormUrlEncoded
+    @POST("/api/event/getAll")
+    fun getAllMarkers(@Field("payload") payload: String): Call<List<Event>>
 
     @FormUrlEncoded
     @POST("/api/event/insert")
