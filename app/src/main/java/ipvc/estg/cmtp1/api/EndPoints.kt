@@ -18,6 +18,10 @@ interface EndPoints {
     fun insertPoint(@Field("payload") payload: String?, @Header("Authorization") auth : String): Call<Event>
 
 
+    @FormUrlEncoded
+    @POST("/api/event/update")
+    fun updateEvent(@Field("payload") payload: String?, @Header("Authorization") auth : String): Call<Event>
+
 
 /*    @GET("/users/")
     fun getUsers(): Call<List<User>>

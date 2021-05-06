@@ -14,7 +14,7 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/close_add_event"
+            android:id="@+id/close_edit_event"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/ColorBlackNote"
@@ -49,7 +49,7 @@
                 android:layout_margin="@dimen/_10sdp"/>
 
             <TextView
-                android:id="@+id/add_textview_foto"
+                android:id="@+id/add_textview_foto_edit"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/add_textview_foto"
@@ -58,13 +58,13 @@
             </TextView>
 
             <ImageView
-                android:id="@+id/image_view"
+                android:id="@+id/image_view_edit"
                 android:background="@drawable/ic_image"
                 android:layout_gravity="center_horizontal"
                 android:layout_width="200dp"
                 android:layout_height="200dp" />
             <Button
-                android:id="@+id/btn_capture"
+                android:id="@+id/btn_capture_edit"
                 android:text="@string/btn_capture_image"
                 android:layout_marginTop="12dp"
                 android:layout_gravity="center_horizontal"
@@ -78,7 +78,7 @@
                 android:layout_marginStart="@dimen/_20sdp">
             </TextView>
             <Spinner
-                android:id="@+id/spinner_category"
+                android:id="@+id/spinner_category_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/_20sdp"/>
@@ -90,7 +90,7 @@
                 android:layout_marginStart="@dimen/_20sdp">
             </TextView>
             <EditText
-                android:id="@+id/text_description_event"
+                android:id="@+id/text_description_event_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_10sdp"
@@ -103,7 +103,7 @@
                 android:textSize="@dimen/_14ssp"/>
 
             <Button
-                android:id="@+id/btn_saveEvent"
+                android:id="@+id/btn_saveEvent_edit"
                 android:text="@string/add_btn_save"
                 android:layout_marginTop="12dp"
                 android:layout_gravity="center_horizontal"
@@ -112,4 +112,3 @@
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
-
