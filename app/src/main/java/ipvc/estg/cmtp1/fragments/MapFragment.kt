@@ -9,7 +9,9 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.Location
+import android.os.Build
 import android.os.Bundle
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -21,13 +23,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.PermissionChecker.checkPermission
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -55,6 +56,7 @@ import kotlinx.android.synthetic.main.fragment_notes.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 import java.util.*
 
 
@@ -196,21 +198,40 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
         fabBtnCreateEvent.setOnClickListener {
             //(activity as NavigationHost).navigateTo(AddEventFragment(), true, false)
+            if (ActivityCompat.checkSelfPermission(
+                    context!!,
+                    ACCESS_FINE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                    context!!,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return@setOnClickListener
+            }
 
-            if (idUser != 0) {
-                val bundle = Bundle()
-                bundle.putString("lt", "location")
-                bundle.putDouble("latitude", latitude!!)
-                bundle.putDouble("longitude", longitude!!)
-                (activity as NavigationHost).navigateToWithData(
-                    AddEventFragment(),
-                    addToBackstack = true,
-                    animate = true,
-                    tag = "location",
-                    data = bundle
-                )
-            } else {
-                (activity as NavigationHost).navigateTo(LoginFragment(), true, false)
+            fusedLocationProviderClient.lastLocation.addOnSuccessListener(activity!!) { location ->
+                if (idUser != 0) {
+                    val bundle = Bundle()
+                    bundle.putString("lt", "location")
+                    bundle.putDouble("latitude", location.latitude)
+                    bundle.putDouble("longitude", location.longitude)
+                    (activity as NavigationHost).navigateToWithData(
+                        AddEventFragment(),
+                        addToBackstack = true,
+                        animate = true,
+                        tag = "location",
+                        data = bundle
+                    )
+                } else {
+                    (activity as NavigationHost).navigateTo(LoginFragment(), true, false)
+                }
             }
         }
 
@@ -226,6 +247,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         nMap = googleMap
+        googleMap.clear()
         enableMyLocation()
         getDeviceLocation()
 
