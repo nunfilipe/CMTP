@@ -5,9 +5,14 @@ import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.app.Activity
 import android.content.ContentValues.TAG
 import android.content.Context
+import android.content.Context.SENSOR_SERVICE
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Color
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.location.Location
 import android.os.Bundle
 import android.util.Base64
@@ -18,6 +23,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.google.android.gms.location.*
@@ -27,6 +33,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.gson.Gson
 import ipvc.estg.cmtp1.Listener.NavigationIconClickListener
@@ -49,7 +56,7 @@ import retrofit2.Response
 import java.util.*
 
 
-class MapFragment : Fragment(), OnMapReadyCallback {
+class MapFragment : Fragment(), OnMapReadyCallback, SensorEventListener {
 
     private val REQUEST_LOCATION_PERMISSION = 1
     private var nMap: GoogleMap? = null
@@ -59,6 +66,11 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     private var longitude: Double? = null
     private var lastKnownLocation: Location? = null
     private val categoryList: MutableList<Category> = ArrayList<Category>()
+    private var mSensorManager: SensorManager? = null
+    private var mLight: Sensor? = null
+
+
+
 
     private fun isPermissionGranted(): Boolean {
         return context?.let {
@@ -83,13 +95,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                     )
                 } != PackageManager.PERMISSION_GRANTED
             ) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
                 return
             }
 
@@ -113,9 +118,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-    // Callback for the result from requesting permissions.
-    // This method is invoked for every call on requestPermissions(android.app.Activity, String[],
-    // int).
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,
@@ -140,6 +142,9 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        setUpSensorLight()
+
         val arr = resources.getStringArray(R.array.category)
 
         categoryList.add(Category(id="1", arr[0].toString()))
@@ -187,6 +192,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
         return view
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -312,14 +318,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     companion object {
         private const val DEFAULT_ZOOM = 15
-/*        private const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
-
-        // Keys for storing activity state.
-        private const val KEY_CAMERA_POSITION = "camera_position"
-        private const val KEY_LOCATION = "location"
-
-        // Used for selecting the current place.
-        private const val M_MAX_ENTRIES = 5*/
     }
 
     override fun onCreateOptionsMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -434,11 +432,40 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
+    private fun setUpSensorLight() {
+        mSensorManager = context!!.getSystemService(SENSOR_SERVICE) as SensorManager
+        mLight = mSensorManager!!.getDefaultSensor(Sensor.TYPE_LIGHT)
+    }
+
     override fun onResume() {
         super.onResume()
+        mSensorManager!!.registerListener(this, mLight, SensorManager.SENSOR_DELAY_NORMAL);
         if(nMap != null){
             getMarkers()
         }
     }
 
+    override fun onSensorChanged(event: SensorEvent?) {
+        if (event!!.values[0] < 20000.0) {
+            nMap!!.setMapStyle(
+                MapStyleOptions.loadRawResourceStyle(
+                    context,
+                    R.raw.map_in_night
+                )
+            );
+        } else {
+            nMap!!.setMapStyle(
+                MapStyleOptions.loadRawResourceStyle(
+                    context,
+                    R.raw.map_in_day
+                )
+            );
+        }
+    }
+
+    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
+        return
+    }
+
 }
+
