@@ -331,6 +331,10 @@ class MapFragment : Fragment(), OnMapReadyCallback, SensorEventListener {
                 (activity as NavigationHost).navigateTo(FilterFragment(), addToBackstack = true, animate = false)
                 true
             }
+            R.id.compass -> {
+                (activity as NavigationHost).navigateTo(CompassFragment(), addToBackstack = true, animate = false)
+                true
+            }
             else -> false
         }
     }
@@ -374,7 +378,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, SensorEventListener {
             val call = request.getAllMarkers(payload)
             call.enqueue(object : Callback<List<Event>> {
                 override fun onResponse(call: Call<List<Event>>, response: Response<List<Event>>) {
-                    Log.e("response",response.body().toString())
+                    //Log.e("response",response.body().toString())
                     val data = response.body()
                     data.forEach {
 
@@ -445,21 +449,25 @@ class MapFragment : Fragment(), OnMapReadyCallback, SensorEventListener {
         }
     }
 
-    override fun onSensorChanged(event: SensorEvent?) {
-        if (event!!.values[0] < 20000.0) {
-            nMap!!.setMapStyle(
-                MapStyleOptions.loadRawResourceStyle(
-                    context,
-                    R.raw.map_in_night
-                )
-            );
-        } else {
-            nMap!!.setMapStyle(
-                MapStyleOptions.loadRawResourceStyle(
-                    context,
-                    R.raw.map_in_day
-                )
-            );
+    override fun onSensorChanged(event: SensorEvent) {
+        if(nMap != null){
+            if (event.values[0] < 150.0) {
+                //valor normal para telemovel sem luz 90.0 com luz 110.0
+               // Log.e("light", event.values[0].toString())
+                nMap!!.setMapStyle(
+                    MapStyleOptions.loadRawResourceStyle(
+                        context,
+                        R.raw.map_in_night
+                    )
+                );
+            } else {
+                nMap!!.setMapStyle(
+                    MapStyleOptions.loadRawResourceStyle(
+                        context,
+                        R.raw.map_in_day
+                    )
+                );
+            }
         }
     }
 
